@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <h:head>
+        <title>Login</title>
+        <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css"></link>
+        <link href="resources/css/login.css" rel="stylesheet" type="text/css"/>
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    </h:head>
+    <h:body>
+        <div class="wrapper">
+            <div id="formContent">
+                <h2 style="color:#7601a5">Login</h2>
+                <h:form>
+                    <p>Username<h:inputText id="login" styleClass="fadeIn second" value="#{loginController.kullanici.ad}"/> </p>
+                    <p>Password<h:inputSecret id="password" styleClass="fadeIn third" value="#{loginController.kullanici.sifre}"/> </p>
+                    <h:commandButton styleClass="fadeIn fourth" action="#{loginController.login()}" value="Login"/>
+                </h:form>
+
+
+            </div>
+        </div>
+        <h:form>
+            <div class="btn-group">
+                <h:commandButton styleClass="btn btn-dark" action="/homeIndex?faces-redirect=true" value="Index"/>
+                <h:commandButton styleClass="btn btn-dark" action="/login?faces-redirect=true" value="Login"/>
+                <h:commandButton styleClass="btn btn-dark" action="/logout?faces-redirect=true" value="Logout"/>
+                <h:commandButton styleClass="btn btn-dark" action="/register?faces-redirect=true" value="Register"/>
+                <h:commandButton styleClass="btn btn-dark" action="/shared/admin/index?faces-redirect=true" value="Panel"/>
+            </div>
+        </h:form>
+    </h:body>
+</html>
+

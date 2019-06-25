@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+    
+    <h:form id="grup-form" prependId="false" rendered="#{grupController.grup.id == null ? loginController.kontrol.grup.adi == 'Admin' ? true : false : true }">
+        <div class="form-group">
+            <h:inputHidden value="#{grupController.grup.id}"/>
+            <label for="inputName">Adı</label>
+            <h:inputText styleClass="form-control" value="#{grupController.grup.adi}"/>
+        </div>
+
+        <div class="btn btn-group">
+            <h:commandButton rendered="#{grupController.grup.id != null}" styleClass="btn btn-info" value="Update" action="#{grupController.update}">
+                <f:ajax execute="grup-form" render="grup-form grup-table" />
+            </h:commandButton>
+            <h:commandButton rendered="#{grupController.grup.id == null}" styleClass="btn btn-primary" value="Create" action="#{grupController.create}">
+                <f:ajax execute="grup-form" render="grup-form grup-table" />
+            </h:commandButton>
+            <h:commandButton rendered="#{grupController.grup.id != null}" styleClass="btn btn-secondary" value="Clear Form" action="#{grupController.clearForm}">
+                <f:ajax execute="grup-form" render="grup-form grup-table" />
+            </h:commandButton>
+        </div>
+    </h:form>
+</ui:composition>
+

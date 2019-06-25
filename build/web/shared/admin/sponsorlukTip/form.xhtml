@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:form id="sponsorlukTip-form" prependId="false" rendered="#{sponsorlukTipController.spnTip.id == null ? loginController.kontrol.grup.adi == 'Admin' ? true : false : true }">
+        <div class="form-group">
+            <h:inputHidden value="#{sponsorlukTipController.spnTip.id}"/>
+            <label for="inputName" >Ad</label>
+            <h:inputText styleClass="form-control" value="#{sponsorlukTipController.spnTip.ad}"/>
+        </div>
+        <div class="form-group">
+            <label for="inputAciklama" >Açıklama</label>
+            <h:inputText styleClass="form-control" value="#{sponsorlukTipController.spnTip.aciklama}"/>
+        </div>
+        <div class="form-group">
+            <label for="inputOdeme" >Ödeme Miktarı</label>
+            <h:inputText styleClass="form-control" value="#{sponsorlukTipController.spnTip.odememiktari}"/>
+        </div>
+        <div class="btn btn-group">
+            <h:commandButton rendered="#{sponsorlukTipController.spnTip.id != null}" styleClass="btn btn-info" value="Update" action="#{sponsorlukTipController.update}">
+                <f:ajax execute="sponsorlukTip-form" render="sponsorlukTip-form sponsorlukTip-table"/>
+            </h:commandButton>
+            <h:commandButton rendered="#{sponsorlukTipController.spnTip.id == null}" styleClass="btn btn-info" value="Create" action="#{sponsorlukTipController.create}">
+                <f:ajax execute="sponsorlukTip-form" render="sponsorlukTip-form sponsorlukTip-table"/>
+            </h:commandButton>
+            <h:commandButton rendered="#{sponsorlukTipController.spnTip.id != null}" styleClass="btn btn-info" value="Clear Form" action="#{sponsorlukTipController.clearForm}">
+                <f:ajax execute="sponsorlukTip-form" render="sponsorlukTip-form sponsorlukTip-table"/>
+            </h:commandButton>
+        </div>
+    </h:form>
+
+
+</ui:composition>
+

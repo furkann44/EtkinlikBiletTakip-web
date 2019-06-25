@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <h:form id="mekan-form" prependId="false" rendered="#{mekanController.mekan.id == null ? loginController.kontrol.grup.adi == 'Admin' ? true : false : true }">
+        <div class="form-group">
+            <h:inputHidden value="#{mekanController.mekan.id}"/>
+            <label for="inputName" >Ad</label>
+            <h:inputText styleClass="form-control" value="#{mekanController.mekan.ad}"/>
+        </div>
+        <div class="form-group">
+            <label for="inputKap">Kapasite</label>
+            <h:inputText styleClass="form-control" value="#{mekanController.mekan.kapasite}"/><br/> 
+        </div>
+        <div class="form-group">
+            <label for="inputStant">Stant Sayısı</label>
+            <h:inputText styleClass="form-control" value="#{mekanController.mekan.stantsayisi}"/><br/> 
+        </div>
+        <div class="form-group">
+            <label for="inputAdres">Adres</label>
+            <h:inputText styleClass="form-control" value="#{mekanController.mekan.adres}"/><br/> 
+        </div>
+        <div class="form-group">
+            <label for="inputSalon">Salon Sayısı</label>
+            <h:inputText styleClass="form-control" value="#{mekanController.mekan.salonsayisi}"/><br/> 
+        </div>
+        <div class="form-group">
+            <label for="selectTip">Mekan Tipi</label>
+            <h:selectOneMenu id="selectTip" styleClass="custom-select" value="#{mekanController.selectedTip}">
+                <f:selectItems value="#{mekanController.mekanTipList}" var="mekanTip" itemValue="#{mekanTip.id}" itemLabel="#{mekanTip.tip}"/>
+            </h:selectOneMenu>
+        </div>
+        <div class="btn btn-group">
+            <h:commandButton rendered="#{mekanController.mekan.id != null}" styleClass="btn btn-info" value="Update" action="#{mekanController.update}">
+                <f:ajax execute="mekan-form" render="mekan-form mekan-table" />
+            </h:commandButton>
+            <h:commandButton rendered="#{mekanController.mekan.id == null}" styleClass="btn btn-primary" value="Create" action="#{mekanController.create}">
+                <f:ajax execute="mekan-form" render="mekan-form mekan-table" />
+            </h:commandButton>
+            <h:commandButton rendered="#{mekanController.mekan.id != null}" styleClass="btn btn-secondary" value="Clear Form" action="#{mekanController.clearForm}">
+                <f:ajax execute="mekan-form" render="mekan-form mekan-table" />
+            </h:commandButton>
+        </div>
+    </h:form>
+
+
+</ui:composition>
+

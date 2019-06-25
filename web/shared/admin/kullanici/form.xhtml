@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+    
+     <h:form id="kullanici-form" prependId="false" rendered="#{kullaniciController.kullanici.id == null ? loginController.kontrol.grup.adi == 'Admin' ? true : false : true }">
+                        <div class="form-group">
+                            <h:inputHidden value="#{kullaniciController.kullanici.id}"/>
+                            <label for="inputName">Adı</label>
+                            <h:inputText styleClass="form-control" value="#{kullaniciController.kullanici.ad}"/>
+                        </div>
+                        <div class="form-group">
+                            <h:selectOneMenu styleClass="custom-select" value="#{kullaniciController.kullanici.grup}" converter="grupConverter">
+                                <f:selectItems value="#{kullaniciController.grupController.grupList}" var="grup" itemValue="#{grup}" itemLabel="#{grup.adi}"/>
+                            </h:selectOneMenu>
+                        </div>
+                        <div class="form-group">
+                            <label>Şifre</label>
+                            <h:inputText styleClass="form-control" value="#{kullaniciController.kullanici.sifre}"/>
+                        </div>
+                        
+                        <div class="btn btn-group">
+                            <h:commandButton rendered="#{kullaniciController.kullanici.id != null}" styleClass="btn btn-info" value="Update" action="#{kullaniciController.update}">
+                                <f:ajax execute="kullanici-form" render="kullanici-form kullanici-table" />
+                            </h:commandButton>
+                            <h:commandButton rendered="#{kullaniciController.kullanici.id == null}" styleClass="btn btn-primary" value="Create" action="#{kullaniciController.create}">
+                                <f:ajax execute="kullanici-form" render="kullanici-form kullanici-table" />
+                            </h:commandButton>
+                            <h:commandButton rendered="#{kullaniciController.kullanici.id != null}" styleClass="btn btn-secondary" value="Clear Form" action="#{kullaniciController.clearForm}">
+                                <f:ajax execute="kullanici-form" render="kullanici-form kullanici-table" />
+                            </h:commandButton>
+                        </div>
+                    </h:form>
+    
+    
+</ui:composition>
+

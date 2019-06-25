@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:form id="mekanTip-table">
+        <h:dataTable styleClass="table table-striped table-hover" value="#{mekanTipController.mekanTipList}" var="mekanTip">
+            <h:column>
+                <f:facet name="header">Id</f:facet>
+                    #{mekanTip.id}
+            </h:column>
+            <h:column>
+                <f:facet name="header">Tipi</f:facet>
+                <h:commandLink action="#{mekanTipController.updateForm(mekanTip)}" value="#{mekanTip.tip}">
+                    <f:ajax execute="@this" render="mekanTip-form"/>
+                </h:commandLink>
+            </h:column> 
+            <h:column>
+                <f:facet name="header">Açıklama</f:facet>
+                    #{mekanTip.aciklama}
+            </h:column>
+            <h:column>
+                <f:facet name="header">Delete</f:facet>
+                <h:commandButton onclick="$('#birimSilModal').modal('show')" styleClass="btn btn-sm btn-danger" value="Delete" action="#{mekanTipController.deleteConfirm(mekanTip)}">
+                    <f:ajax execute="@this" render="#delete-modal"/>
+                </h:commandButton>
+            </h:column>
+        </h:dataTable>
+    </h:form>
+
+    <div class="modal fade" id="birimSilModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content" id="delete-modal">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Emanet Sil?</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p> Emin Misiniz ?<br/>
+                        <pre>
+                                       <b>#{mekanTipController.mekanTip.tip}</b>
+                        </pre>
+                    </p> 
+                </div>
+                <div class="modal-footer">
+                    <h:form>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Kapat</button>
+
+                        <h:commandButton class="btn btn-danger"   onclick="$('#birimSilModal').modal('hide')" value="Sil" action="#{mekanTipController.delete}">
+                            <f:ajax execute="@this" render="mekanTip-form mekanTip-table" />
+                        </h:commandButton>
+                    </h:form>
+                </div>
+            </div>
+        </div>
+    </div>
+</ui:composition>
+

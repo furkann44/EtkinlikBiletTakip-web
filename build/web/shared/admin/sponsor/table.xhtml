@@ -1,0 +1,70 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets" 
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:form id="sponsor-table">
+        <h:inputText id="search" value="#{sponsorController.searchString}" style="margin:10px 0 10px 0"></h:inputText>
+        <h:commandButton value="Ara" action="#{sponsorController.search()}">
+            <f:ajax execute="search" render="tableSpo"/>
+        </h:commandButton>
+        <h:dataTable id="tableSpo" styleClass="table table-striped table-hover" value="#{sponsorController.sponsorList}" var="sponsor">
+            <h:column>
+                <f:facet name="header">Id</f:facet>
+                    #{sponsor.id}
+            </h:column>
+            <h:column>
+                <f:facet name="header">Ad</f:facet>
+                <h:commandLink action="#{sponsorController.updateForm(sponsor)}" value="#{sponsor.ad}">
+                    <f:ajax execute="@this" render="sponsor-form"/>
+                </h:commandLink>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Vergi Numarasi</f:facet>
+                    #{sponsor.verginumarasi}
+            </h:column>
+            <h:column>
+                <f:facet name="header">Sponsorluk Tipi</f:facet>
+                #{sponsor.spnTip.ad}
+            </h:column>
+            <h:column>
+                <f:facet name="header">Delete</f:facet>
+                <h:commandButton onclick="$('#silModal').modal('show')" styleClass="btn btn-sm btn-danger" value="Delete" action="#{sponsorController.deleteConfirm(sponsor)}">
+                    <f:ajax execute="@this" render="#silModal"/>
+                </h:commandButton>
+            </h:column>
+        </h:dataTable>
+    </h:form> 
+
+    <div class="modal fade" id="silModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content" id="delete-modal">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Sponsor Sil?</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p> Emin Misiniz ?<br/>
+                        <pre>
+                                       <b>#{sponsorController.sponsor.ad}</b>
+                        </pre>
+                    </p> 
+                </div>
+                <div class="modal-footer">
+                    <h:form>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Kapat</button>
+
+                        <h:commandButton class="btn btn-danger"   onclick="$('#silModal').modal('hide')" value="Sil" action="#{sponsorController.delete}">
+                            <f:ajax execute="@this" render="sponsor-form sponsor-table" />
+                        </h:commandButton>
+                    </h:form>
+                </div>
+            </div>
+        </div>
+    </div> 
+</ui:composition>
+

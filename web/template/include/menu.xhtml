@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <h:form>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <h:commandLink styleClass="nav-link" action="#{navigationBean.page('musteri')}" value="Musteri"/>
+                    </li>
+                    <li class="nav-item">
+                        <h:commandLink styleClass="nav-link" action="#{navigationBean.page('sponsor')}" value="Sponsor"/>
+                    </li>
+                    <li class="nav-item">
+                        <h:commandLink styleClass="nav-link" action="#{navigationBean.page('etkinlikTur')}" value="Etkinlik Tür"/>
+                    </li>
+                    <li class="nav-item">
+                        <h:commandLink styleClass="nav-link" action="#{navigationBean.page('sponsorlukTip')}" value="Sponsorluk Tipi"/>
+                    </li>
+                    <li class="nav-item">
+                        <h:commandLink styleClass="nav-link" action="#{navigationBean.page('mekanTip')}" value="Mekan Tipi"/>
+                    </li>
+                    <li class="nav-item">
+                        <h:commandLink styleClass="nav-link" action="#{navigationBean.page('mekan')}" value="Mekan"/>
+                    </li>
+                    <li class="nav-item">
+                        <h:commandLink styleClass="nav-link" action="#{navigationBean.page('etkinlik')}" value="Etkinlik"/>
+                    </li> 
+                    <li class="nav-item">
+                        <h:commandLink styleClass="nav-link" action="#{navigationBean.page('grup')}" value="Grup"/>
+                    </li>
+                    <li class="nav-item">
+                        <h:commandLink styleClass="nav-link" action="#{navigationBean.page('kullanici')}" value="Kullanici"/>
+                    </li>
+                    <li class="nav-item">
+                        <h:commandLink styleClass="nav-link" action="#{navigationBean.page('bilet')}" value="Bilet"/>
+                    </li>
+                    <li class="nav-item">
+                        <h:commandLink styleClass="nav-link" action="#{navigationBean.page('dosya')}" value="Dosya"/>
+                    </li>
+                    <li class="nav-item" style="margin-left: 180px">
+                        <h:commandButton styleClass="btn btn-dark" action="/logout?faces-redirect=true" value="Logout"/>
+                    </li>
+
+                </ul>
+            </h:form>
+        </div>
+    </nav>
+</ui:composition>
+

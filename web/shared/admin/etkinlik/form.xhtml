@@ -1,0 +1,98 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets" 
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <h:outputScript library="js" name="jquery-1.12.4.js"/>
+        <h:outputStylesheet library="css" name="jquery-ui.css"/>
+        <h:outputScript library="js" name="jquery-ui.js"/>
+    </h:head>
+
+     
+    
+    <h:form id="etkinlik-form" prependId="false" rendered="#{etkinlikController.etkinlik.id == null ? loginController.kontrol.grup.adi == 'Admin' ? true : false : true }">
+        <div class="form-group">
+            <h:inputHidden value="#{etkinlikController.etkinlik.id}"/>
+            <label for="inputName" >Ad</label>
+            <h:inputText styleClass="form-control" value="#{etkinlikController.etkinlik.adi}"/>
+        </div>
+        <div class="form-group">
+            <label for="inputKap">Kitle</label>
+            <h:inputText styleClass="form-control" value="#{etkinlikController.etkinlik.kitle}"/><br/> 
+        </div>
+        <div class="form-group">
+            <label for="inputBitis">Başlangıç Tarihi</label>
+            <h:inputText class="form-control date" id="startDate" value="#{etkinlikController.etkinlik.baslangic}">
+                <f:convertDateTime pattern="dd/mm/yyyy"/>
+            </h:inputText><br/>  
+            <h:message for="startDate" style="color:red"/>
+        </div>  
+
+        <div class="form-group">
+            <label for="inputBitis">Bitiş Tarihi</label>
+            <h:inputText class="form-control date" id="finishDate" value="#{etkinlikController.etkinlik.bitis}">
+                <f:convertDateTime pattern="dd/mm/yyyy"/>
+            </h:inputText><br/>  
+            <h:message for="finishDate" style="color:red"/>
+        </div> 
+        <div class="form-group">
+            <label for="selectTip">Etkinlik Türü Seçimi</label>
+            <h:selectOneMenu id="selectTur" styleClass="custom-select" value="#{etkinlikController.etkinlik.etkinlikTur}" converter="etkinlikTurConverter">
+                <f:selectItems value="#{etkinlikController.etkTurController.etkTurList}" var="etkinlikTur" itemValue="#{etkinlikTur}" itemLabel="#{etkinlikTur.ad}"/>
+            </h:selectOneMenu>
+        </div>
+          <div class="form-group">
+            <label for="selectTip">Etkinlik Yeri</label>
+            <h:selectOneMenu id="selectMekan" styleClass="custom-select" value="#{etkinlikController.etkinlik.mekan}" converter="mekanConverter">
+                <f:selectItems value="#{etkinlikController.mekanController.mekanList}" var="mekan" itemValue="#{mekan}" itemLabel="#{mekan.ad}"/>
+            </h:selectOneMenu>
+        </div>
+        <div class="form-group">
+            <label for="selectDosya">Dosya</label>
+            <h:selectOneMenu id="selectDosya" styleClass="custom-select" value="#{etkinlikController.etkinlik.dosya}" converter="dosyaConverter">
+                <f:selectItems value="#{etkinlikController.dosyaController.dosyaList}" var="dosya" itemValue="#{dosya}" itemLabel="#{dosya.adi}"/>
+            </h:selectOneMenu>
+        </div>
+        <div class="form-group">
+            <label for="etkinlikSponsor">Sponsor Seçimi</label>
+            <h:selectManyMenu  value="#{etkinlikController.etkinlik.etkinlikSponsor}" styleClass="custom-select" style="height: 100px" converter="sponsorConverter">
+                <f:selectItems value="#{etkinlikController.sponsorController.sponsorList}" var="sponsor" itemValue="#{sponsor}" itemLabel="#{sponsor.ad}"/>
+            </h:selectManyMenu>
+        </div>
+
+        <div class="btn btn-group">
+            <h:commandButton rendered="#{etkinlikController.etkinlik.id != null}" styleClass="btn btn-info" value="Update" action="#{etkinlikController.update}">
+                <f:ajax execute="etkinlik-form" render="etkinlik-form etkinlik-table" />
+            </h:commandButton>
+            <h:commandButton rendered="#{etkinlikController.etkinlik.id == null}" styleClass="btn btn-primary" value="Create" action="#{etkinlikController.create}">
+                <f:ajax execute="etkinlik-form" render="etkinlik-form etkinlik-table" />
+            </h:commandButton>
+            <h:commandButton rendered="#{etkinlikController.etkinlik.id != null}" styleClass="btn btn-danger" value="Delete" action="#{etkinlikController.delete}">
+                <f:ajax execute="etkinlik-form" render="etkinlik-form etkinlik-table" />
+            </h:commandButton>
+            <h:commandButton rendered="#{etkinlikController.etkinlik.id != null}" styleClass="btn btn-dark" value="Clear Form" action="#{etkinlikController.clearForm}">
+                <f:ajax execute="etkinlik-form" render="etkinlik-form etkinlik-table"/>
+            </h:commandButton>
+
+        </div>
+    </h:form> 
+    <script>
+
+        $(document).ready(function () {
+
+            $('.date').datepicker({
+                format: 'dd/mm/yyyy'
+            });
+        });
+
+        $(".date").datepicker({
+            monthNames: ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"],
+            dayNamesMin: ["Pa", "Pt", "Sl", "Ça", "Pe", "Cu", "Ct"],
+            firstDay: 1
+        });
+
+    </script>
+</ui:composition>
+

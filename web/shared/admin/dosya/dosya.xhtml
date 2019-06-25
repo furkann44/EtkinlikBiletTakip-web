@@ -1,0 +1,84 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="/template/template.xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+
+    <ui:define name="content">
+        <title>Dosya</title>
+        <h:form enctype="multipart/form-data">
+            <div class="form-group">
+                <label>Dosya</label>
+                <h:inputFile value="#{dosyaController.doc}" styleClass="custom-file"/>
+            </div>
+            <h:commandButton action="#{dosyaController.upload}" value="Upload" styleClass="btn btn-primary" />
+        </h:form>
+        <hr />
+        <h:dataTable id="tableDos" styleClass="table" value="#{dosyaController.dosyaList}" var="dosya">
+            <h:column>
+                <f:facet name="header">Id</f:facet>
+                    #{dosya.id}
+            </h:column>
+            <h:column>
+                <f:facet name="header">Adı</f:facet>
+                    #{dosya.adi}
+            </h:column>
+            <h:column>
+                <f:facet name="header">Dosya Yolu</f:facet>
+                    #{dosya.dosyayolu}
+            </h:column>
+            <h:column>
+                <f:facet name="header">Dosya Tipi</f:facet>
+                    #{dosya.dosyauzanti}
+            </h:column>
+            <h:column>
+                <h:panelGroup layout="block" rendered="#{dosya.dosyauzanti.contains('image')}">
+                    <h:graphicImage style="width: 100px;height: 100px" value="/dosya/#{dosya.adi}"/>
+                </h:panelGroup>
+                <h:panelGroup layout="block" rendered="#{dosya.dosyauzanti.contains('app')}">
+                    <a href="/BiletTakip/dosya/#{dosya.adi}">#{dosya.adi}</a>
+                </h:panelGroup>
+            </h:column>
+            <h:column> 
+                <f:facet name="header">Delete</f:facet>
+                <h:commandButton onclick="$('#SilModal').modal('show')" styleClass="btn btn-sm btn-danger" action="#{dosyaController.deleteConfirm(dosya)}" value="Delete">
+                    <f:ajax execute="@this" render="#SilModal"/>
+                </h:commandButton> 
+            </h:column>
+        </h:dataTable>
+        <div class="modal fade" id="SilModal" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content" id="delete-modal">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Dosya Sil?</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p> Emin Misiniz ?<br/>
+                            <pre>
+                                       <b>#{dosyaController.dosya.adi}</b>
+                            </pre>
+                        </p> 
+                    </div>
+                    <div class="modal-footer">
+                        <h:form>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Kapat</button> 
+                            <h:commandButton class="btn btn-danger" onclick="$('#SilModal').modal('hide')" value="Sil" action="#{dosyaController.delete}">
+                                <f:ajax execute="@this" render="tableDos" />
+                            </h:commandButton>
+                        </h:form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </ui:define> 
+
+
+</ui:composition>
+
